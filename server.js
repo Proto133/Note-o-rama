@@ -4,11 +4,10 @@ const express = require("express");
 const path = require("path");
 // need fs to read and write to files
 const fs = require("fs");
-
 // creating an "express" server
 const app = express();
 // Sets an Initial port for listeners
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4500;
 
 //  Initialize notesData
 
@@ -60,13 +59,12 @@ app.post("/api/notes", function(req, res) {
             // error handling
             if (err) throw err;
         });
-        // changeit back to an array of objects & send it back to the browser(client)
+        // change it back to an array of objects & send it back to the browser(client)
         res.json(JSON.parse(notesData));
 
         // error Handling
     } catch (err) {
         throw err;
-        console.error(err);
     }
 });
 
@@ -96,7 +94,6 @@ app.delete("/api/notes/:id", function(req, res) {
         // error handling
     } catch (err) {
         throw err;
-        console.log(err);
     }
 });
 

@@ -2,8 +2,8 @@ let noteTitle;
 let noteText;
 let saveBtn;
 let addNote;
-let startOver;
 let noteList;
+let refreshNote;
 
 if (window.location.pathname === '/notes') {
     noteTitle = document.querySelector('.note-title');
@@ -11,6 +11,7 @@ if (window.location.pathname === '/notes') {
     saveBtn = document.querySelector('.save-note');
     addNote = document.querySelector('.new-note');
     noteList = document.querySelectorAll('.list-container .list-group');
+    refreshNote = document.querySelector('.refresh-note');
 }
 
 // Show an element
@@ -90,7 +91,6 @@ const searchAndDestroy = (e) => {
 
     const note = e.target;
     const noteId = JSON.parse(note.parentElement.getAttribute('data-note')).id;
-
     if (newNote.id === noteId) {
         newNote = {};
     }
@@ -111,6 +111,8 @@ const handleNoteView = (e) => {
 // Clears newNote object ready for user input.
 const addNoteView = (e) => {
     newNote = {};
+    addNote.classList.remove('fa-redo');
+    addNote.classList.add('fa-plus');
     showFreshNote();
 };
 
@@ -119,6 +121,8 @@ const toggleSaveBtn = () => {
         hide(saveBtn);
     } else {
         show(saveBtn);
+        addNote.classList.remove('fa-plus');
+        addNote.classList.add('fa-redo');
     }
 };
 
@@ -175,6 +179,7 @@ const showList = async(notes) => {
     if (window.location.pathname === '/notes') {
         noteListItems.forEach((note) => noteList[0].append(note));
     }
+
 };
 
 // Gets notes from the db and renders them to the sidebar
