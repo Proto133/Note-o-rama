@@ -59,7 +59,6 @@ const remove = (id) =>
 const showFreshNote = () => {
     //Disallows saving a blank note
     hide(saveBtn);
-
     if (newNote.id) {
         noteTitle.setAttribute('readonly', true);
         noteText.setAttribute('readonly', true);
@@ -73,6 +72,8 @@ const showFreshNote = () => {
     }
 };
 
+
+// User Saves new Note
 const submitData = () => {
     const newNote = {
         title: noteTitle.value,
@@ -84,6 +85,20 @@ const submitData = () => {
     });
 };
 
+// IF Notes list is empty replace it with welcome Text
+// const placeHolderData = () => {
+//     const placeHolderNote = {
+//         title: "Welcome to Note-O-Rama",
+//         text: "To get started, click the plus sign in the top right corner of the page and create your first note! Once, you've made a title and some content -- a save button will appear. Click on the that to save your note, and that's it; you're all done!"
+//     };
+//     saveNote(placeHolderNote).then(() => {
+//         getAndRenderNotes();
+//         showFreshNote();
+//     });
+// };
+
+
+
 // Delete the clicked note
 const searchAndDestroy = (e) => {
     // Prevents the click listener for the list from being called when the button inside of it is clicked
@@ -94,7 +109,6 @@ const searchAndDestroy = (e) => {
     if (newNote.id === noteId) {
         newNote = {};
     }
-
     remove(noteId).then(() => {
         getAndRenderNotes();
         showFreshNote();
@@ -129,6 +143,7 @@ const toggleSaveBtn = () => {
 // Render the list of note titles
 const showList = async(notes) => {
     let jsonNotes = await notes.json();
+
     if (window.location.pathname === '/notes') {
         noteList.forEach((el) => (el.innerHTML = ''));
     }
@@ -165,7 +180,8 @@ const showList = async(notes) => {
         return liEl;
     };
 
-    if (jsonNotes.length === 0) {
+    if (jsonNotes.length <= 0) {
+        // placeHolderData();
         noteListItems.push(createLi('No saved Notes', false));
     }
 
@@ -182,6 +198,17 @@ const showList = async(notes) => {
 
 };
 
+// const initialView = () => {
+//     getNotes().then(async(notes) => {
+//         let initNote = await notes.json()
+//         if (initNote) {
+//             newNote = initNote[0];
+//             console.log(newNote);
+//         }
+//     }).then(showFreshNote(newNote));
+// };
+
+
 // Gets notes from the db and renders them to the sidebar
 const getAndRenderNotes = () => getNotes().then(showList);
 
@@ -192,4 +219,6 @@ if (window.location.pathname === '/notes') {
     noteText.addEventListener('keyup', toggleSaveBtn);
 }
 
+
+// initialView();
 getAndRenderNotes();

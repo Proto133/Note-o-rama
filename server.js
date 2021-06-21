@@ -49,7 +49,7 @@ app.post("/api/notes", function(req, res) {
         // parse the data to get an array of objects
         notesData = JSON.parse(notesData);
         // Set new notes id
-        req.body.id = notesData.length;
+        req.body.id = (notesData.length + 1);
         // add the new note to the array of note objects
         notesData.push(req.body); // req.body - user input
         // make it string(stringify)so you can write it to the file
