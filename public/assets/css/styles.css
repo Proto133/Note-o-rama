@@ -105,4 +105,9 @@ nav {
     .normal {
         display: none;
     }
+    .note-title {
+        height: 50px;
+        margin-top: 13px;
+        font-size: 12.5vw;
+    }
 }
