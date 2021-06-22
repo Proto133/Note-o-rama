@@ -7,7 +7,7 @@ const fs = require("fs");
 // creating an "express" server
 const app = express();
 // Sets an Initial port for listeners
-const PORT = process.env.PORT || 4500;
+const PORT = process.env.PORT || 3000;
 
 //  Initialize notesData
 
@@ -26,7 +26,7 @@ app.get("/api/notes", function(err, res) {
     try {
         // reads the notes from json file
         notesData = fs.readFileSync("./db/db.json", "utf8");
-        console.log("hello!");
+        console.log("API Notes are a go. . . ");
         // parse it so notesData is an array of objects
         notesData = JSON.parse(notesData);
 
