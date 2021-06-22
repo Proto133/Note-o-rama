@@ -151,16 +151,23 @@ const showList = async(notes) => {
     let noteListItems = [];
 
     // Returns HTML element with or without a delete button
-    const createLi = (text, delBtn = true) => {
+    const createLi = (text, id, delBtn = true) => {
         const liEl = document.createElement('li');
         liEl.classList.add('list-group-item', 'noselect');
 
         const spanEl = document.createElement('span');
-        spanEl.classList.add('list-item-title', 'noselect');
+        spanEl.classList.add('list-item-title', 'normal', 'noselect');
         spanEl.innerText = text;
         spanEl.addEventListener('click', handleNoteView);
 
+        //Tiny Screen Protocol
+        const spanElTiny = document.createElement('span');
+        spanElTiny.classList.add('list-item-title', 'hidden', 'noselect');
+        spanElTiny.innerText = `Note ${id}`;
+        spanElTiny.addEventListener('click', handleNoteView);
+
         liEl.append(spanEl);
+        liEl.append(spanElTiny);
 
         if (delBtn) {
             const delBtnEl = document.createElement('i');
@@ -186,7 +193,7 @@ const showList = async(notes) => {
     }
 
     jsonNotes.forEach((note) => {
-        const li = createLi(note.title);
+        const li = createLi(note.title, note.id);
         li.dataset.note = JSON.stringify(note);
 
         noteListItems.push(li);
@@ -218,7 +225,6 @@ if (window.location.pathname === '/notes') {
     noteTitle.addEventListener('keyup', toggleSaveBtn);
     noteText.addEventListener('keyup', toggleSaveBtn);
 }
-
 
 // initialView();
 getAndRenderNotes();

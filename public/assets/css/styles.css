@@ -90,3 +90,23 @@ nav {
     padding: 20px;
     cursor: pointer;
 }
+
+.hidden {
+    display: none;
+}
+
+.normal {
+    display: inline-block;
+}
+
+@media screen and (max-width:420px) {
+    .list-item-title {
+        font-size: 3vw !important;
+    }
+    .hidden {
+        display: inline-block;
+    }
+    .normal {
+        display: none;
+    }
+}
